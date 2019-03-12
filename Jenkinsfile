@@ -68,10 +68,8 @@ pipeline {
         steps {
           dir ('./charts/ttc-connectors-dummytwitter') {
             container('maven') {
-              sh 'helm repo remove stable'
-              sh 'helm repo add stable https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts'
-              sh 'helm repo update'
               //sh 'jx step changelog --version v\$(cat ../../VERSION)'
+              sh 'helm init --client-only --stable-repo-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts'
               // release the helm chart
               sh 'make release'
               // promote through all 'Auto' promotion Environments
